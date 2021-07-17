@@ -1,0 +1,15 @@
+.columns {
+  display: flex;
+}
+.columns .column {
+  width: 100px;
+  border: 1px solid #000;
+}
+.columns .row {
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 10px;
+}
+.columns .row .fold_btn {
+  cursor: pointer;
+}

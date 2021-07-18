@@ -2,14 +2,50 @@
   display: flex;
 }
 .columns .column {
-  width: 100px;
+  width: 300px;
   border: 1px solid #000;
 }
 .columns .row {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   padding: 5px 10px;
+}
+.columns .row .row_info {
+  display: flex;
+  align-items: center;
+}
+.columns .row_info .label {
+  margin-left: 12px;
+  display: flex;
+  align-items: center;
+}
+.columns .label .label_val {
+  margin-left: 8px;
+  width: 180px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 .columns .row .fold_btn {
   cursor: pointer;
+}
+.columns .checking_status {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  width: 14px;
+  height: 14px;
+}
+.columns .checking_status .status.not_checked {
+  width: 14px;
+  height: 14px;
+  border: 1px solid #b2b2b2;
+}
+.columns .checking_status .status.intermediate {
+  width: 14px;
+  height: 14px;
+  border: 1px solid #b2b2b2;
+  background-color: #b2b2b2;
 }

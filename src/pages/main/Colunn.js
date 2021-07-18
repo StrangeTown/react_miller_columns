@@ -3,7 +3,7 @@ import Row from './Row'
 
 class Column extends React.Component {
   render() {
-    const { tree, onRowFoldChange } = this.props
+    const { tree, onRowFoldChange, onRowCheckingStatusChange } = this.props
 
     return (
       <div className="column">
@@ -14,6 +14,9 @@ class Column extends React.Component {
               item={item}
               onFoldChange={(foldState) => {
                 onRowFoldChange(rowIdx, foldState)
+              }}
+              onCheckingStatusChange={(action) => {
+                onRowCheckingStatusChange(rowIdx, action)
               }}
             />
           )

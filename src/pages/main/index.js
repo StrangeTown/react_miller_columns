@@ -5,16 +5,18 @@ import Column from './Colunn'
 import { checkAction, checkingStatus } from '../../constant'
 
 const getTree = (data) => {
-  const tree = data.map((item) => {
-    if (item.type === systemTypes.dir) {
-      return {
-        ...item,
-        checkingStatus: checkingStatus.notChecked,
-        unfolded: false,
-        children: getTree(item.children),
-      }
+  const tree = data.map((item, idx) => {
+    const formattedItem = {
+      ...item,
+      checkingStatus: checkingStatus.notChecked,
+      loaded: idx < 10,
     }
-    return { ...item, checkingStatus: checkingStatus.notChecked }
+
+    if (item.type === systemTypes.dir) {
+      formattedItem.unfolded = false
+      formattedItem.children = getTree(item.children)
+    }
+    return formattedItem
   })
   return tree
 }
@@ -38,6 +40,9 @@ class Main extends React.Component {
   }) => {
     if (currentColIdx === targetColIdx) {
       tree[rowIdx].unfolded = foldState
+      tree.forEach((row, idx) => {
+        row.unfolded = idx === rowIdx ? foldState : false
+      })
     } else {
       const unfoldeditem = tree.find((item) => {
         return item.type === systemTypes.dir && item.unfolded === true
@@ -65,7 +70,7 @@ class Main extends React.Component {
   }
   updateAllChildrenStatus = (tree, status) => {
     tree.forEach((item) => {
-      if (item.type === systemTypes.file) {
+      if (item.type === systemTypes.file && item.loaded) {
         item.checkingStatus = status
       } else if (item.type === systemTypes.dir) {
         this.updateAllChildrenStatus(item.children, status)
@@ -146,6 +151,28 @@ class Main extends React.Component {
     this.updateDirCheckingStatus(this.state.tree)
     this.setState({ tree: this.state.tree })
   }
+  loadMore = (currentColIdx, targetColIdx, tree) => {
+    if (currentColIdx === targetColIdx) {
+      let moreCount = 10
+      tree.forEach((row) => {
+        if (moreCount > 0 && !row.loaded) {
+          row.loaded = true
+          moreCount--
+        }
+      })
+    } else {
+      const unfoldeditem = tree.find((item) => {
+        return item.type === systemTypes.dir && item.unfolded === true
+      })
+      if (unfoldeditem) {
+        this.loadMore(currentColIdx + 1, targetColIdx, unfoldeditem.children)
+      }
+    }
+  }
+  handleLoadMoreClick = (colIdx) => {
+    this.loadMore(0, colIdx, this.state.tree)
+    this.setState({ tree: this.state.tree })
+  }
   getColumns(tree, columns = [], colIdx = 0) {
     columns.push(
       <Column
@@ -156,6 +183,9 @@ class Main extends React.Component {
         }}
         onRowCheckingStatusChange={(rowIdx, action) => {
           this.handleCheckingStatusChange(colIdx, rowIdx, action)
+        }}
+        onLoadMoreClick={() => {
+          this.handleLoadMoreClick(colIdx)
         }}
       />
     )

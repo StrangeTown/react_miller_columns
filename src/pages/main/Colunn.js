@@ -3,11 +3,18 @@ import Row from './Row'
 
 class Column extends React.Component {
   render() {
-    const { tree, onRowFoldChange, onRowCheckingStatusChange } = this.props
+    const {
+      tree,
+      onRowFoldChange,
+      onRowCheckingStatusChange,
+      onLoadMoreClick,
+    } = this.props
+    const loadedRows = tree.filter((item) => item.loaded)
+    const hasUnloadedRows = tree.some((item) => !item.loaded)
 
     return (
       <div className="column">
-        {tree.map((item, rowIdx) => {
+        {loadedRows.map((item, rowIdx) => {
           return (
             <Row
               key={rowIdx}
@@ -21,6 +28,18 @@ class Column extends React.Component {
             />
           )
         })}
+        {hasUnloadedRows && (
+          <div className="load_more">
+            <div
+              className="more_btn"
+              onClick={() => {
+                onLoadMoreClick()
+              }}
+            >
+              Load More
+            </div>
+          </div>
+        )}
       </div>
     )
   }

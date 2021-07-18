@@ -9,17 +9,20 @@ const getName = (type) => {
   return ''
 }
 
-const fileType = systemTypes.file
-const dirType = systemTypes.dir
-
 const types = [systemTypes.file, systemTypes.dir]
-const getRandomData = (columnCount, maxRow) => {
-  const count = Math.floor(Math.random() * maxRow) + 1
+const getRandomData = ({currentColumnIdx, maxColumnCount, maxRow}) => {
+  const actualMaxRow = currentColumnIdx === 0 ? 10 : maxRow
+  const count = Math.floor(Math.random() * actualMaxRow) + 1
+  const isLastColmun = currentColumnIdx === (maxColumnCount - 1)
   const rows = [...Array(count)].map(() => {
     const type =
-      columnCount === 1 ? systemTypes.file : types[Math.round(Math.random())]
+      isLastColmun ? systemTypes.file : types[Math.round(Math.random())]
     if (type === systemTypes.dir) {
-      const children = getRandomData(columnCount - 1, maxRow)
+      const children = getRandomData({
+        currentColumnIdx: currentColumnIdx + 1,
+        maxColumnCount,
+        maxRow
+      })
       return {
         type,
         label: getName(type),
@@ -35,5 +38,9 @@ const getRandomData = (columnCount, maxRow) => {
   return rows
 }
 
-export const fakeData = getRandomData(4, 10)
+export const fakeData = getRandomData({
+  currentColumnIdx: 0,
+  maxColumnCount: 4,
+  maxRow: 20
+})
 

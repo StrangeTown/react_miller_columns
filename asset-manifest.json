@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/react_miller_columns/static/css/main.30bf4156.chunk.css",
+    "main.js": "/react_miller_columns/static/js/main.acd52f44.chunk.js",
+    "main.js.map": "/react_miller_columns/static/js/main.acd52f44.chunk.js.map",
+    "runtime-main.js": "/react_miller_columns/static/js/runtime-main.52bdddd8.js",
+    "runtime-main.js.map": "/react_miller_columns/static/js/runtime-main.52bdddd8.js.map",
+    "static/js/2.89ca0274.chunk.js": "/react_miller_columns/static/js/2.89ca0274.chunk.js",
+    "static/js/2.89ca0274.chunk.js.map": "/react_miller_columns/static/js/2.89ca0274.chunk.js.map",
+    "static/js/3.6e8dcb9b.chunk.js": "/react_miller_columns/static/js/3.6e8dcb9b.chunk.js",
+    "static/js/3.6e8dcb9b.chunk.js.map": "/react_miller_columns/static/js/3.6e8dcb9b.chunk.js.map",
+    "index.html": "/react_miller_columns/index.html",
+    "static/css/main.30bf4156.chunk.css.map": "/react_miller_columns/static/css/main.30bf4156.chunk.css.map",
+    "static/js/2.89ca0274.chunk.js.LICENSE.txt": "/react_miller_columns/static/js/2.89ca0274.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.52bdddd8.js",
+    "static/js/2.89ca0274.chunk.js",
+    "static/css/main.30bf4156.chunk.css",
+    "static/js/main.acd52f44.chunk.js"
+  ]
+}

@@ -1,10 +1,10 @@
 import './index.css'
 import React from 'react'
-import { fakeData, systemTypes } from '../../data/index'
+import { getFakeData, systemTypes } from '../../data/index'
 import Column from './Colunn'
 import { checkAction, checkingStatus } from '../../constant'
 
-const getTree = (data) => {
+const initializeTree = (data) => {
   const tree = data.map((item, idx) => {
     const formattedItem = {
       ...item,
@@ -14,7 +14,7 @@ const getTree = (data) => {
 
     if (item.type === systemTypes.dir) {
       formattedItem.unfolded = false
-      formattedItem.children = getTree(item.children)
+      formattedItem.children = initializeTree(item.children)
     }
     return formattedItem
   })
@@ -29,7 +29,11 @@ class Main extends React.Component {
     }
   }
   componentDidMount() {
-    this.setState({ tree: getTree(fakeData) })
+    this.init()
+  }
+  init = () => {
+    const data = getFakeData()
+    this.setState({ tree: initializeTree(data) })
   }
   updateFoldState = ({
     tree,
